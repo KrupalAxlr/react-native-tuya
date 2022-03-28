@@ -255,7 +255,24 @@ RCT_EXPORT_METHOD(getEmailValidateCode:(NSDictionary *)params resolver:(RCTPromi
   }];
 
 }
+/*
+* 邮箱找回密码，获取验证码
+* @param countryCode 国家区号
+* @param email       邮箱账户
+*/
+RCT_EXPORT_METHOD(getResetValidateCode:(NSDictionary *)params resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter) {
 
+
+  NSString *countryCode = params[kTuyaRNUserModuleCountryCode];
+  NSString *email = params[kTuyaRNUserModuleEmail];
+    
+  [[TuyaSmartUser sharedInstance] sendVerifyCodeWithUserName:email region:@"" countryCode:countryCode type:3 success:^{
+    [TuyaRNUtils resolverWithHandler:resolver];
+  } failure:^(NSError *error) {
+    [TuyaRNUtils rejecterWithError:error handler:rejecter];
+  }];
+  
+}
 /* 邮箱重置密码
 * @param email     用户账户
 * @param validateCode 邮箱验证码
