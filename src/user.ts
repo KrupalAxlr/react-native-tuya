@@ -24,6 +24,12 @@ export function getEmailValidateCode(
   return tuya.getEmailValidateCode(params);
 }
 
+export function getResetValidateCode(
+  params: GetEmailValidateCodeParams
+): Promise<any> {
+  return tuya.getResetValidateCode(params);
+}
+
 export function resetEmailPassword(
   params: ResetEmailPasswordParams
 ): Promise<any> {

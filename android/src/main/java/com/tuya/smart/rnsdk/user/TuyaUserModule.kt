@@ -161,6 +161,19 @@ class TuyaUserModule(reactContext: ReactApplicationContext) : ReactContextBaseJa
 
     /* 邮箱重置密码 */
     @ReactMethod
+    fun getResetValidateCode(params: ReadableMap, promise: Promise) {
+         if (ReactParamsCheck.checkParams(arrayOf(COUNTRYCODE, EMAIL), params)) {
+            TuyaHomeSdk.getUserInstance().sendVerifyCodeWithUserName(
+                    params.getString(EMAIL),
+                    "",
+                    params.getString(COUNTRYCODE),
+                    3,
+                    getIResultCallback(promise)
+            )
+        }
+    }
+    /* 邮箱重置密码 */
+    @ReactMethod
     fun resetEmailPassword(params: ReadableMap, promise: Promise) {
         if (ReactParamsCheck.checkParams(arrayOf(COUNTRYCODE, EMAIL, VALIDATECODE, NEWPASSWORD), params)) {
             TuyaHomeSdk.getUserInstance().resetEmailPassword(
